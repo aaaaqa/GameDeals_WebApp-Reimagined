@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script defer href= "{{ url_for('static',filename='index.js') }}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    <title>GameDeals - Catalogue</title>
+
+    <script>
+        window.onload = function (){
+            let document_title = document.getElementsByTagName('title')[0];
+            var id = document_title.textContent.split(" ")[2]
+            var element = document.getElementById(id);
+            element.style.fontWeight = "bold";
+            element.style.color = "#ffffff";
+        }
+
+        function nextPage(id) {
+            var current_url = window.location.href;
+            var slice = (parseInt(current_url.substr(current_url.length - 1)) + 1).toString();
+            document.getElementById(id).setAttribute('href', current_url.substring(0, current_url.length - 1) + slice);
+        }
+        function prevPage(id) {
+            var current_url = window.location.href;
+            var slice = (parseInt(current_url.substr(current_url.length - 1)) - 1).toString();
+            if(parseInt(slice) >= 1){
+                document.getElementById(id).setAttribute('href', current_url.substring(0, current_url.length - 1) + slice);
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <header class="home-header" style="z-index:1;">
+        <a href="/home" class=logo><img src="{{ url_for('static',filename='logo.webp') }}"/></a>
+        <div class="navbar">
+            <ul class="navbar-list">
+                <li><a href="/home">Home</a></li>
+                <li><a id="Catalogue" href="/catalog">Catalogue</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <a href="/profile" class="user-icon"><i class="ri-user-fill"></i></a>
+        </div>
+    </header>
+
+    <main class="catalogue-body">
+        <div class="catalogue">
+            {% for (title, current, discount, image, link) in list %}
+                <a href="{{link}}">
+                    <div class="catalogue-image">
+                        <img src="{{image}}" loading="lazy">
+                    </div>
+                    <div class="catalogue-title">
+                        <span>{{title}}</span>
+                    </div>
+                    <div class="price">
+                        <span class="crossed">
+                            {{current}}
+                        </span>
+                        {{discount}}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <a id="prev-page" onclick="prevPage('prev-page')">Previous</a>
+            <a id="next-page" onclick="nextPage('next-page')">Next</a>
+        <div>
+    <main>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script defer href= "{{ url_for('static',filename='index.js') }}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    <title>GameDeals - Home</title>
+
+    <script>
+        window.onload = function (){
+            let document_title = document.getElementsByTagName('title')[0];
+            var id = document_title.textContent.split(" ")[2]
+            var element = document.getElementById(id);
+            element.style.fontWeight = "bold";
+            element.style.color = "#ffffff";
+        }
+    </script>
+</head>
+
+<body class="home">
+    <header class="home-header">
+        <a href="/home" class=logo><img src="{{ url_for('static',filename='logo.webp') }}"/></a>
+        <div class="navbar">
+            <ul class="navbar-list">
+                <li><a id="Home" href="/home">Home</a></li>
+                <li><a href="/catalog/1">Catalogue</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <a href="/profile" class="user-icon"><i class="ri-user-fill"></i></a>
+        </div>
+    </header>
+    <main>
+        <div class="home-content">
+            <div class="cards">
+                {% for (image, link) in cards_list %}
+                    <div class="card-images">
+                        <a href="{{link}}"><img src="{{image}}" loading="lazy"/></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="bottom-home">
+                <div class="hot-sales">
+                    <div class="hot-sales-title">
+                        <div>HOT SALES</div>
+                    </div>
+                    <div class="hot-sales-wrapper">
+                        {% for (title, discount, image, total, link) in hotsales_list %}
+                            <a class="hot-sale" href="{{link}}">
+                                <div class="hot-sale-content">
+                                    <img class="hot-sale-img" src="{{image}}" loading="lazy"/>
+                                    <div class="hot-sale-title">
+                                        <div>{{title}}</div>
+                                    </div>
+                                    <div class="hot-sale-discount">
+                                        <div>{{discount}}</div>
+                                    </div>
+                                    <div class="hot-sale-total">
+                                        <div>{{total}}</div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="indies">
+                    <div class="indies-title">
+                        <span>NEW INDIES</span>
+                    </div>
+                    {% for (image, link) in indies_list %}
+                        <div class="indie-content">
+                            <a href="{{link}}">
+                                <img src="{{image}}" loading="lazy"/>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

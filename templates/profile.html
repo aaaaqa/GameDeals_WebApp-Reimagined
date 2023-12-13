@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script defer href= "{{ url_for('static',filename='index.js') }}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    <title>GameDeals - Profile</title>
+
+    <script>
+        function openSetting(settingId, contentId){
+            const settings = ['recommendations', 'games-list', 'account-settings'];
+            const contents = ['account-settings-content', 'recommendations-content', 'games-list-content'];
+            settings.forEach((setting) => {
+                const settingElement = document.getElementById(setting);
+                settingElement.style.fontWeight = setting === settingId ? "bold" : "100";
+            });
+
+            contents.forEach((content) => {
+                const contentElement = document.getElementById(content);
+                contentElement.style.display = content === contentId ? "block" : "none";
+            });
+        }
+
+        function logOut(){
+            window.location.href='/logout';
+        }
+        window.onload = function (){
+            let document_title = document.getElementsByTagName('title')[0];
+            var id = document_title.textContent.split(" ")[2]
+            var element = document.getElementById(id);
+            element.style.fontWeight = "bold";
+            element.style.color = "#ffffff";
+
+            document.getElementById('recommendations').style.fontWeight = "bold";
+        }
+
+        function openDialog(dialogId){
+            const dialogArray = ['password-change', 'username-change', 'delete-account']
+            const dialog = document.getElementById('profile-dialog');
+
+            dialogArray.forEach((content) => {
+                    const contentElement = document.getElementById(content);
+                    contentElement.style.display = content === dialogId ? "block" : "none";
+                });
+
+            document.addEventListener("click", (event) => {
+                if (event.target.classList.contains("openDialogButton")) {
+                    dialog.showModal();
+                } else if (event.target.id === "dialogCloseButton") {
+                    dialog.close();
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <header class="home-header">
+        <a href="/home" class=logo><img src="{{ url_for('static',filename='logo.webp') }}"/></a>
+        <div class="navbar">
+            <ul class="navbar-list">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/catalog">Catalogue</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <a id="Profile" href="/profile" class="user-icon"><i class="ri-user-fill"></i></a>
+        </div>
+    </header>
+    <main>
+        <div class="profile">
+            <div class="navbar-profile">
+                <div class="profile-icon">
+                    <a href="/profile" class="profile-user"><i class="ri-user-fill"></i></a>
+                    <h1>{{ current_user.username }}</h1>
+                    <span id='Status'>Online</span>
+                </div>
+                <div class="profile-options">
+                    <ul class="options-list">
+                        <li onclick="openSetting('recommendations', 'recommendations-content')" id="recommendations">Recommendations</li>
+                        <li onclick="openSetting('games-list', 'games-list-content')" id="games-list">Games List</li>
+                        <li onclick="openSetting('account-settings', 'account-settings-content')" id="account-settings">Account Settings</li>
+                        <li onclick="logOut()" id="log-out">Log Out</li>
+                    <ul>
+                </div>
+            </div>
+            <div class="profile-content">
+                <div class="account-settings-content" id="account-settings-content">
+                    <div class="account-settings-title">
+                        <h2>My account</h2>
+                    </div>
+                    <div class="profile-line"></div>
+                    <div class="account-settings-body">
+                        <div>
+                            <h3 class="account-settings-body-subtitle">Username</h3>
+                            <button class="account-settings-button openDialogButton"
+                                onclick="openDialog('username-change')" type="button">Edit Username</button>
+                        </div>
+                        <div>
+                            <h3 class="account-settings-body-subtitle">Password</h3>
+                            <button class="account-settings-button openDialogButton"
+                                onclick="openDialog('password-change')" type="button">Edit Password</button>
+                        </div>
+                        <div>
+                            <button class="account-settings-button delete-button openDialogButton" 
+                                onclick="openDialog('delete-account')" type="button">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendations-content", id="recommendations-content">
+                    <div class="user-recommendations">
+                        <h2 class="user-recommendations-title">LIKE AT HOME</h2>
+                        <div class="user-recommendations-images">
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outer-recommendations">
+                        <h2 class="user-recommendations-title">EXPERIENCE A BIT</h2>
+                        <div class="user-recommendations-images">
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                            <div class="user-recommendations-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                                <span>15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="games-list-content" id="games-list-content">
+                    <div class="games-list">
+                        <h3 class="games-list-title">Your games list</h3>
+                        <div class="games-list-images">
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                            <div class="games-list-image">
+                                <img src="{{ url_for('static',filename='likehome.png') }}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="games-list-link">
+                        <a href="/catalog/1">Añadir juegos...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <dialog id="profile-dialog" class="profileUpdate">
+        <div class="parentRegister" id="username-change" style="display:none">
+            <div class="registerHeader">
+                <h2>Update your username</h2>
+                <button id="dialogCloseButton">X</button>
+            </div>
+            <div class="parentRegisterLine"></div>
+            <div class="registerForm">
+                <form method="POST" action="/profile">
+                    <input type="text" name="username" style="display:none" value="{{current_user.username}}">
+                    <input type="text" name="new-username" class="formControl" placeholder="New username">
+                    <input type="password" name="current-password" class="formControl" placeholder="Password">
+                    <button name="button" type="submit" class="button registerSignUp" value="username-edit">Done</button>
+                </form>
+            </div>
+        </div>
+        <div class="parentRegister" id="password-change" style="display:none">
+            <div class="registerHeader">
+                <h2>Update your password</h2>
+                <button id="dialogCloseButton">X</button>
+            </div>
+            <div class="parentRegisterLine"></div>
+            <div class="registerForm">
+                <form method="POST" action="/profile">
+                    <input type="text" name="username" style="display:none" value="{{current_user.username}}">
+                    <input type="password" name="current-password" class="formControl" placeholder="Current password">
+                    <input type="password" name="new-password" class="formControl" placeholder="New password">
+                    <input type="password" name="confirm-password" class="formControl" placeholder="Confirm new password">
+                    <button name="button" type="submit" class="button registerSignUp" value="password-edit">Done</button>
+                </form>
+            </div>
+        </div>
+        <div class="parentRegister" id="delete-account" style="display:none">
+            <div class="registerHeader">
+                <h2>Delete Account</h2>
+                <button id="dialogCloseButton">X</button>
+            </div>
+            <div class="parentRegisterLine"></div>
+            <div class="registerForm">
+                <form action="/profile">
+                    <input type="text" name="username" style="display:none" value="{{current_user.username}}">
+                    <button name="button" name="delete-account" type="submit" 
+                        class="button registerSignUp" value="delete-account">Delete</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <title>Game Deals - Terms and Conditions</title>
+</head>
+
+<body>
+    <div class="terms">
+        <button class="termsButton"><a href="/login">Go Back!</a></button>
+        <div class="termsTitle">
+            <h1>Terms and Conditions for GameDeals</h1>
+        </div>
+        <div class="termsBody">
+            <h2 id="currentDate"></h2>
+            <p>Welcome to GameDeals! By using our service, you agree to these simple terms:</p>
+            <h3>1. Use of Service:</h3>
+            <p>Use GameDeals to find video game discounts. Don't misuse the service.</p>
+            <h3>2. Account:</h3>
+            <p>Create an account if needed. Keep your info accurate and safe.</p>
+            <h3>3. Content:</h3>
+            <p>a. Your Content: You own what you submit. We can use it to provide the service.
+            <br>
+            b. Third-Party Content: We're not responsible for content on other websites.</p>
+            <h3>4. Intellectual Property:</h3>
+            <p>We own GameDeals. Don't steal it.</p>
+            <h3>5. No Warranty:</h3>
+            <p>The service is provided as is. No guarantees.</p>
+            <h3>6. Limitation of Liability:</h3>
+            <p>We're not liable for any damages.</p>
+            <h3>7. Changes:</h3>
+            <p>We might update these terms. We'll give notice if it's a big change.</p>
+            <h3>8. Contact:</h3>
+            <p>Questions? Email us at support@gamedeals.com.</p>
+            <p>Thanks for using GameDeals!</p>
+        </div>
+    </div>
+</body>
+
+<script>
+    date = new Date();
+    year = date.getFullYear();
+    month = date.getMonth() + 1;
+    day = date.getDate();
+    document.getElementById("currentDate").innerHTML = "Last Update: " + month + "/" + day + "/" + year;
+</script>
+
+</html>
